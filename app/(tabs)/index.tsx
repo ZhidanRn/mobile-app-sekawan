@@ -92,7 +92,7 @@ export default function ListScreen() {
         <Text style={styles.header}>Posts</Text>
 
         {loading ? (
-          <ActivityIndicator size="large" color={colorScheme === "dark" ? "#fff" : "#007BFF"} />
+          <ActivityIndicator size="large" color={colorScheme === "dark" ? "#fff" : "#007BFF"} style={styles.loader} />
         ) : (
           <Animated.View style={{ opacity: fadeAnim }}>
             <FlatList
@@ -164,6 +164,10 @@ const getStyles = (colorScheme: string) =>
       marginBottom: 24,
       marginTop: 16,
       color: colorScheme === "dark" ? Colors.dark.text : Colors.light.text,
+    },
+    loader: {
+      flex: 1,
+      justifyContent: "center",
     },
     list: {
       paddingBottom: 20,
