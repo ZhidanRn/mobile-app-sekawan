@@ -15,6 +15,9 @@ export const Colors = {
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
     border: '#D0D0D0',
+    portoCard: '#f1f3f5',
+    portoTitle: '#0077b5',
+    portoDesc: '#555'
   },
   dark: {
     text: '#ECEDEE',
@@ -24,5 +27,8 @@ export const Colors = {
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
     border: '#353636',
+    portoCard: '#2d2d2d',
+    portoTitle: "#fff",
+    portoDesc: '#fff'
   },
 };
