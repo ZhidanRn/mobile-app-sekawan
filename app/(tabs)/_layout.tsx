@@ -31,6 +31,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="albums"
+        options={{
+          title: 'Albums',
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="photo" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="users"
         options={{
           title: 'Users',

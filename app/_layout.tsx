@@ -33,6 +33,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="detailPost/[id]" options={{ title: 'Detail Post' }} />
         <Stack.Screen name="detailUser/[id]" options={{ title: 'Detail User' }} />
+        <Stack.Screen name="detailAlbum/[id]" options={{ title: 'Detail Album' }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
