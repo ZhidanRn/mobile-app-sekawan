@@ -4,6 +4,8 @@ import { useLocalSearchParams } from "expo-router";
 import { axiosInstance } from "@/lib/api";
 import PostCard from "@/components/PostCard";
 import CommentCard from "@/components/CommentCard";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
 
 interface Post {
   title: string;
@@ -20,6 +22,9 @@ interface Comment {
 }
 
 export default function DetailScreen() {
+  const colorScheme = useColorScheme();
+  const styles = getStyles(colorScheme ?? "light");
+
   const { id } = useLocalSearchParams();
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -105,31 +110,32 @@ export default function DetailScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#f0f2f5",
-  },
-  centeredContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f0f2f5",
-  },
-  errorText: {
-    fontSize: 16,
-    color: "red",
-    textAlign: "center",
-  },
-  commentHeader: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 10,
-    marginBottom: 5,
-    color: "#65676B",
-  },
-  commentList: {
-    flexGrow: 1,
-  },
+const getStyles = (colorScheme: string) => 
+  StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 10,
+        backgroundColor: colorScheme === "dark" ? Colors.dark.background : Colors.light.background,
+    },
+    centeredContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: colorScheme === "dark" ? Colors.dark.background : Colors.light.background,
+    },
+    errorText: {
+        fontSize: 16,
+        color: "red",
+        textAlign: "center",
+    },
+    commentHeader: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginTop: 10,
+        marginBottom: 5,
+        color: colorScheme === "dark" ? Colors.dark.text : Colors.light.text,
+    },
+    commentList: {
+        flexGrow: 1,
+    },
 });

@@ -11,6 +11,8 @@ import {
 import { Link } from "expo-router";
 import { axiosInstance } from "@/lib/api";
 import PostCard from "@/components/PostCard";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { Colors } from "@/constants/Colors";
 
 interface Post {
   id: number;
@@ -25,6 +27,9 @@ interface Comment {
 }
 
 export default function ListScreen() {
+  const colorScheme = useColorScheme();
+  const styles = getStyles(colorScheme ?? "light");
+
   const [data, setData] = useState<Post[]>([]);
   const [likes, setLikes] = useState<{ [key: number]: { count: number; liked: boolean } }>({});
   const [commentCounts, setCommentCounts] = useState<{ [key: number]: number }>({});
@@ -87,7 +92,7 @@ export default function ListScreen() {
         <Text style={styles.header}>Posts</Text>
 
         {loading ? (
-          <ActivityIndicator size="large" color="#007BFF" />
+          <ActivityIndicator size="large" color={colorScheme === "dark" ? "#fff" : "#007BFF"} />
         ) : (
           <Animated.View style={{ opacity: fadeAnim }}>
             <FlatList
@@ -142,25 +147,25 @@ export default function ListScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: "#f9f9f9",
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  header: {
-    fontSize: 26,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 24,
-    marginTop: 16,
-    color: "#333",
-  },
-  list: {
-    paddingBottom: 20,
-  },
-});
-
+const getStyles = (colorScheme: string) =>
+  StyleSheet.create({
+    background: {
+      flex: 1,
+      backgroundColor: colorScheme === "dark" ? Colors.dark.background : Colors.light.background,
+    },
+    container: {
+      flex: 1,
+      padding: 16,
+    },
+    header: {
+      fontSize: 26,
+      fontWeight: "bold",
+      textAlign: "center",
+      marginBottom: 24,
+      marginTop: 16,
+      color: colorScheme === "dark" ? Colors.dark.text : Colors.light.text,
+    },
+    list: {
+      paddingBottom: 20,
+    },
+  });

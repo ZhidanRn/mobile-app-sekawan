@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
 
 interface CommentCardProps {
   name: string;
@@ -8,6 +10,9 @@ interface CommentCardProps {
 }
 
 export default function CommentCard({ name, email, body }: CommentCardProps) {
+  const colorScheme = useColorScheme();
+  const styles = getStyles(colorScheme ?? "light");
+
   return (
     <View style={styles.commentCard}>
       <Image
@@ -23,39 +28,40 @@ export default function CommentCard({ name, email, body }: CommentCardProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  commentCard: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    padding: 10,
-    marginBottom: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    alignItems: "flex-start",
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
-  },
-  commentContent: {
-    flex: 1,
-  },
-  commentName: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#050505",
-  },
-  commentEmail: {
-    fontSize: 12,
-    color: "#65676B",
-    marginBottom: 3,
-  },
-  commentBody: {
-    fontSize: 14,
-    color: "#333",
-    lineHeight: 20,
-  },
-});
+const getStyles = (colorScheme: "light" | "dark" | null) => 
+    StyleSheet.create({
+        commentCard: {
+            flexDirection: "row",
+            backgroundColor: colorScheme === "dark" ? Colors.dark.background : Colors.light.background,
+            padding: 10,
+            marginBottom: 8,
+            borderRadius: 8,
+            borderWidth: 1,
+            borderColor: colorScheme === "dark" ? Colors.dark.border : Colors.light.border,
+            alignItems: "flex-start",
+        },
+        avatar: {
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            marginRight: 10,
+        },
+        commentContent: {
+            flex: 1,
+        },
+        commentName: {
+            fontSize: 14,
+            fontWeight: "bold",
+            color: colorScheme === "dark" ? Colors.dark.text : Colors.light.text,
+        },
+        commentEmail: {
+            fontSize: 12,
+            color: colorScheme === "dark" ? Colors.dark.text : Colors.light.text,
+            marginBottom: 3,
+        },
+        commentBody: {
+            fontSize: 14,
+            color: colorScheme === "dark" ? Colors.dark.text : Colors.light.text,
+            lineHeight: 20,
+        },
+    });
