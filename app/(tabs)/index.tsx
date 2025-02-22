@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { axiosInstance } from "@/lib/api";
 
 interface Post {
   id: number;
@@ -24,8 +25,8 @@ export default function ListScreen() {
   const fadeAnim = useState(new Animated.Value(0))[0];
 
   useEffect(() => {
-    axios
-      .get<Post[]>("https://jsonplaceholder.typicode.com/posts")
+    axiosInstance
+      .get<Post[]>("/posts")
       .then((response) => {
         setData(response.data);
         setLoading(false);
