@@ -78,7 +78,6 @@ const getStyles = (scheme: "light" | "dark") =>
             borderRadius: 10,
             borderWidth: 1,
             borderColor: scheme === "dark" ? Colors.dark.border : Colors.light.border,
-            elevation: 2,
         },
         userName: {
             fontSize: 18,
