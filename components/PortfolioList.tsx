@@ -40,16 +40,12 @@ const PortfolioList = () => {
 const getStyles = (colorScheme: "light" | "dark" | null) =>
   StyleSheet.create({
       section: {
-        backgroundColor: colorScheme === 'dark' ? Colors.dark.background : Colors.light.background,
         padding: 20,
         marginBottom: 10,
         borderRadius: 10,
+        borderWidth: 1,
+        borderColor: colorScheme === 'dark' ? Colors.dark.border : Colors.light.border,
         marginHorizontal: 15,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        shadowOffset: { width: 0, height: 2 },
-        elevation: 2,
     },
     sectionTitle: {
         fontSize: 18,
