@@ -56,7 +56,7 @@ const ProfileScreen = () => {
         </View>
         <View style={styles.aboutRow}>
           <Text style={styles.aboutLabel}>Address:</Text>
-          <Text style={styles.aboutValue}>Jl. Raya Candi V A No.392a,{'\n'} karangbesuki, Kec. Sukun,{'\n'} Kota Malang, Jawa Timur 56149</Text>
+          <Text style={styles.aboutValue}>Jl. Raya Candi V A No.392a,{"\n"} karangbesuki, Kec. Sukun,{"\n"} Kota Malang, Jawa Timur 56149</Text>
         </View>
       </View>
 
@@ -106,7 +106,7 @@ const ProfileScreen = () => {
   );
 };
 
-const getStyles = (colorScheme: "light" | "dark" | null) => 
+const getStyles = (colorScheme: "light" | "dark") =>
   StyleSheet.create({
     coverContainer: {
       alignItems: 'center',
@@ -180,22 +180,23 @@ const getStyles = (colorScheme: "light" | "dark" | null) =>
       textAlign: 'justify',
       marginTop: 10,
     },
-      skillsContainer: {
+    skillsContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 10,
     },
     skillBadge: {
       backgroundColor: '#0077b5',
       paddingVertical: 5,
       paddingHorizontal: 10,
       borderRadius: 15,
+      marginBottom: 10,
+      marginRight: 10,
     },
     skillText: {
       color: '#fff',
       fontSize: 14,
     },
-      contactRow: {
+    contactRow: {
       flexDirection: 'row',
       alignItems: 'center',
       marginVertical: 5,
@@ -205,6 +206,6 @@ const getStyles = (colorScheme: "light" | "dark" | null) =>
       marginLeft: 5,
       color: colorScheme === 'dark' ? Colors.dark.text : Colors.light.text,
     },
-});
+  });
 
 export default ProfileScreen;
