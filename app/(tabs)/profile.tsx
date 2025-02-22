@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import PortfolioList from '@/components/PortfolioList';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Colors } from '@/constants/Colors';
+import { openBrowserAsync } from 'expo-web-browser';
 
 const ProfileScreen = () => {
   const colorScheme = useColorScheme();
@@ -52,7 +53,7 @@ const ProfileScreen = () => {
         </View>
         <View style={styles.aboutRow}>
           <Text style={styles.aboutLabel}>Phone:</Text>
-          <Text style={styles.aboutValue}>+62 812-3456-7890</Text>
+          <Text style={styles.aboutValue}>+62 857-4710-8766</Text>
         </View>
         <View style={styles.aboutRow}>
           <Text style={styles.aboutLabel}>Address:</Text>
@@ -89,18 +90,26 @@ const ProfileScreen = () => {
       {/* Social */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Social Media</Text>
-        <View style={styles.contactRow}>
+        <TouchableOpacity style={styles.contactRow} onPress={() => openBrowserAsync("https://github.com/ZhidanRn")}>
           <Ionicons name="logo-github" size={20} color={colorScheme === 'dark' ? "#fff" : "#000"} />
-          <Text style={styles.contact}> github.com/zhidani</Text>
-        </View>
-        <View style={styles.contactRow}>
+          <Text style={styles.contact}> https://github.com/ZhidanRn</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.contactRow} onPress={() => openBrowserAsync("https://www.linkedin.com/in/zhidanir/")}>
           <Ionicons name="logo-linkedin" size={20} color="#0077b5" />
-          <Text style={styles.contact}> linkedin.com/in/zhidanr</Text>
-        </View>
-        <View style={styles.contactRow}>
+          <Text style={styles.contact}>https://www.linkedin.com/in/zhidanir/</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.contactRow} onPress={() => openBrowserAsync("mailto:zhidanir@gmail.com")}>
           <Ionicons name="mail" size={20} color="#d93025" />
           <Text style={styles.contact}> zhidanir@gmail.com</Text>
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.contactRow} onPress={() => openBrowserAsync("https://wa.me/6285747108766")}>
+          <Ionicons name="logo-whatsapp" size={20} color="#25d366" />
+          <Text style={styles.contact}> +62 857-4710-8766</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.contactRow} onPress={() => openBrowserAsync("https://zhidaniramadhan.vercel.app")}>
+          <Ionicons name="link-outline" size={20} color={colorScheme === 'dark' ? "#fff" : "#000"} />
+          <Text style={styles.contact}> zhidaniramadhan.vercel.app</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
