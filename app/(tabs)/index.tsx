@@ -117,7 +117,7 @@ export default function ListScreen() {
                 };
 
                 return (
-                  <Link href={{ pathname: "/detail/[id]", params: { id: item.id.toString() } }} asChild>
+                  <Link href={{ pathname: "/detailPost/[id]", params: { id: item.id.toString() } }} asChild>
                     <TouchableOpacity 
                       activeOpacity={0.7} 
                       onPressIn={handlePressIn} 
