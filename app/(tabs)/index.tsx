@@ -3,15 +3,14 @@ import {
   View, 
   Text, 
   FlatList, 
-  TouchableOpacity, 
   StyleSheet, 
   ActivityIndicator,
-  Animated
+  Animated,
+  TouchableOpacity
 } from "react-native";
-import axios from "axios";
 import { Link } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import { axiosInstance } from "@/lib/api";
+import PostCard from "@/components/PostCard";
 
 interface Post {
   id: number;
@@ -19,8 +18,16 @@ interface Post {
   body: string;
 }
 
+interface Comment {
+  postId: number;
+  id: number;
+  body: string;
+}
+
 export default function ListScreen() {
   const [data, setData] = useState<Post[]>([]);
+  const [likes, setLikes] = useState<{ [key: number]: { count: number; liked: boolean } }>({});
+  const [commentCounts, setCommentCounts] = useState<{ [key: number]: number }>({});
   const [loading, setLoading] = useState(true);
   const fadeAnim = useState(new Animated.Value(0))[0];
 
@@ -30,6 +37,25 @@ export default function ListScreen() {
       .then((response) => {
         setData(response.data);
         setLoading(false);
+
+        const initialLikes = response.data.reduce((acc, post) => {
+          acc[post.id] = { count: Math.floor(Math.random() * 100), liked: false };
+          return acc;
+        }, {} as { [key: number]: { count: number; liked: boolean } });
+
+        setLikes(initialLikes);
+
+        response.data.forEach((post) => {
+          axiosInstance.get<Comment[]>(`/comments?postId=${post.id}`)
+            .then((res) => {
+              setCommentCounts((prev) => ({
+                ...prev,
+                [post.id]: res.data.length,
+              }));
+            })
+            .catch((error) => console.error(`Error fetching comments for post ${post.id}:`, error));
+        });
+
         Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 800,
@@ -42,55 +68,70 @@ export default function ListScreen() {
       });
   }, []);
 
-  const renderItem = ({ item }: { item: Post }) => {
-    const scaleAnim = new Animated.Value(1);
-
-    const handlePressIn = () => {
-      Animated.spring(scaleAnim, {
-        toValue: 0.97,
-        useNativeDriver: true,
-      }).start();
-    };
-
-    const handlePressOut = () => {
-      Animated.spring(scaleAnim, {
-        toValue: 1,
-        friction: 3,
-        tension: 40,
-        useNativeDriver: true,
-      }).start();
-    };
-
-    return (
-      <Link href={{ pathname: "/detail/[id]", params: { id: item.id.toString() } }} asChild>
-        <TouchableOpacity 
-          style={styles.card} 
-          activeOpacity={0.8}
-          onPressIn={handlePressIn}
-          onPressOut={handlePressOut}
-        >
-          <Animated.View style={[styles.cardContent, { transform: [{ scale: scaleAnim }] }]}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.body} numberOfLines={2}>{item.body}</Text>
-            <Ionicons name="arrow-forward" size={20} color="#555" style={styles.icon} />
-          </Animated.View>
-        </TouchableOpacity>
-      </Link>
-    );
+  const handleLike = (postId: number) => {
+    setLikes((prev) => {
+      const isLiked = prev[postId]?.liked || false;
+      return {
+        ...prev,
+        [postId]: {
+          count: isLiked ? prev[postId].count - 1 : prev[postId].count + 1,
+          liked: !isLiked,
+        },
+      };
+    });
   };
 
   return (
     <View style={styles.background}>
       <View style={styles.container}>
         <Text style={styles.header}>Posts</Text>
-        
+
         {loading ? (
           <ActivityIndicator size="large" color="#007BFF" />
         ) : (
           <Animated.View style={{ opacity: fadeAnim }}>
             <FlatList
               data={data}
-              renderItem={renderItem}
+              renderItem={({ item }) => {
+                const scaleAnim = new Animated.Value(1);
+
+                const handlePressIn = () => {
+                  Animated.spring(scaleAnim, {
+                    toValue: 0.96,
+                    useNativeDriver: true,
+                    speed: 30,
+                  }).start();
+                };
+
+                const handlePressOut = () => {
+                  Animated.spring(scaleAnim, {
+                    toValue: 1,
+                    useNativeDriver: true,
+                    speed: 20,
+                  }).start();
+                };
+
+                return (
+                  <Link href={{ pathname: "/detail/[id]", params: { id: item.id.toString() } }} asChild>
+                    <TouchableOpacity 
+                      activeOpacity={0.7} 
+                      onPressIn={handlePressIn} 
+                      onPressOut={handlePressOut}
+                    >
+                      <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+                        <PostCard
+                          title={item.title}
+                          body={item.body}
+                          likeCount={likes[item.id]?.count || 0}
+                          commentCount={commentCounts[item.id] || 0}
+                          liked={likes[item.id]?.liked || false}
+                          onLikePress={() => handleLike(item.id)}
+                        />
+                      </Animated.View>
+                    </TouchableOpacity>
+                  </Link>
+                );
+              }}
               keyExtractor={(item) => item.id.toString()}
               contentContainerStyle={styles.list}
             />
@@ -120,32 +161,6 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingBottom: 20,
-  },
-  card: {
-    marginBottom: 12,
-    borderRadius: 10,
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#ddd",
-  },
-  cardContent: {
-    padding: 16,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#222",
-    marginBottom: 6,
-  },
-  body: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 12,
-  },
-  icon: {
-    position: "absolute",
-    right: 16,
-    bottom: 12,
   },
 });
 
