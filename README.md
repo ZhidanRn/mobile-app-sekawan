@@ -3,6 +3,7 @@
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
+https://expo.dev/artifacts/eas/vdJk6Rj9vU1fEMtWAyXNUA.apk
 
 1. Install dependencies
 
