@@ -48,11 +48,6 @@ Anda dapat mengunduh APK aplikasi ini melalui tautan berikut:
 
 ![Dark Mode](/assets/images/dark.png)
 
-<div style="display: flex;">
-  <img src="/assets/images/demoApp/1.1.jpg" width="200">
-  <img src="gambar2.jpg" width="200">
-</div>
-
 ## API Endpoint
 Aplikasi ini menggunakan API dari JSONPlaceholder:
 - Daftar Postingan: https://jsonplaceholder.typicode.com/posts
