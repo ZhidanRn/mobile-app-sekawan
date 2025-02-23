@@ -1,50 +1,64 @@
-# Welcome to your Expo app 👋
+# React Native JSONPlaceholder App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplikasi React Native sederhana yang menggunakan API dari JSONPlaceholder untuk menampilkan daftar postingan dan detailnya.
 
-## Get started
+## Fitur
+- Menampilkan daftar postingan dari JSONPlaceholder.
+- Melihat detail postingan.
+- Menampilkan komentar terkait postingan.
+- Menampilkan Photos dari Album.
+- Menampilkan daftar user dan detail user.
+- Navigasi antar halaman menggunakan Expo Router.
 
-1. Install dependencies
+## Teknologi yang Digunakan
+- React Native
+- Expo
+- Expo Router (untuk navigasi)
+- Axios (untuk mengambil data dari API)
+- JSONPlaceholder (sebagai API dummy)
 
-   ```bash
-   npm install
-   ```
+## Instalasi
+Pastikan Anda sudah menginstal Node.js dan Expo CLI.
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+1. Clone repositori ini:
+``` bash
+   git clone https://github.com/username/react-native-jsonplaceholder.git
+   cd react-native-jsonplaceholder
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies:
+```bash
+   npm install
+```
 
-## Learn more
+3. Jalankan aplikasi:
+```bash
+   npm start
+```
+## Download APK
+Anda dapat mengunduh APK aplikasi ini melalui tautan berikut:
+   https://expo.dev/artifacts/eas/vdJk6Rj9vU1fEMtWAyXNUA.apk
 
-To learn more about developing your project with Expo, look at the following resources:
+## Screenshot
+### Light Mode
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+![Light Mode](/assets/images/light.png)
 
-## Join the community
+### Dark Mode
 
-Join our community of developers creating universal apps.
+![Dark Mode](/assets/images/dark.png)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<div style="display: flex;">
+  <img src="/assets/images/demoApp/1.1.jpg" width="200">
+  <img src="gambar2.jpg" width="200">
+</div>
+
+## API Endpoint
+Aplikasi ini menggunakan API dari JSONPlaceholder:
+- Daftar Postingan: https://jsonplaceholder.typicode.com/posts
+- Detail Postingan: https://jsonplaceholder.typicode.com/posts/{id}
+- Komentar Postingan: https://jsonplaceholder.typicode.com/posts/{id}/comments
+- Photos dari Album: https://jsonplaceholder.typicode.com/albums/{albumId}/photos
+- Daftar Album: https://jsonplaceholder.typicode.com/albums
+- Daftar User: https://jsonplaceholder.typicode.com/users
+- Detail User: https://jsonplaceholder.typicode.com/users/{id}
